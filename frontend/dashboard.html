@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Dashboard · Digital Twin</title>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand"><span>🧬</span> Digital Twin Health</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="input.html">Profile</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="analyzer.html">Analyzer</a>
+    <a href="diet.html">Diet Plan</a>
+    <a href="chat.html">AI Chat</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>📊 Health Dashboard</h1>
+  <p>Your real-time digital health snapshot</p>
+</div>
+
+<div class="container">
+
+  <!-- Top metrics -->
+  <div class="grid-4 section-gap" id="metric-cards">
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem;margin-bottom:0.3rem">HEALTH SCORE</div>
+      <div id="m-score" style="font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--green)">—</div>
+      <div id="m-grade" class="text-muted" style="font-size:0.8rem">—</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem;margin-bottom:0.3rem">BMI</div>
+      <div id="m-bmi" style="font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--green)">—</div>
+      <div id="m-bmi-cat" class="text-muted" style="font-size:0.8rem">—</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem;margin-bottom:0.3rem">DOSHA</div>
+      <div id="m-dosha" style="font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:#9C27B0">—</div>
+      <div class="text-muted" style="font-size:0.8rem">Constitution</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem;margin-bottom:0.3rem">STEPS/DAY</div>
+      <div id="m-steps" style="font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--green)">—</div>
+      <div class="text-muted" style="font-size:0.8rem">Daily activity</div>
+    </div>
+  </div>
+
+  <div class="grid-2 section-gap">
+    <!-- Score ring card -->
+    <div class="card">
+      <div class="card-title">💚 Health Score Breakdown</div>
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+        <div class="score-ring">
+          <svg class="ring-svg" width="140" height="140" viewBox="0 0 140 140">
+            <circle class="ring-track" cx="70" cy="70" r="58"/>
+            <circle id="score-ring-fill" class="ring-fill" cx="70" cy="70" r="58"
+              stroke="var(--green)"
+              stroke-dasharray="364.4"
+              stroke-dashoffset="364.4"/>
+          </svg>
+          <div id="score-num" class="ring-label">—</div>
+          <div id="score-grade" class="ring-sublabel">—</div>
+        </div>
+        <div style="flex:1" id="score-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- Dosha distribution -->
+    <div class="card">
+      <div class="card-title">🌿 Dosha Distribution</div>
+      <div id="dosha-bars"></div>
+      <hr class="divider"/>
+      <div id="dosha-tips" class="text-muted" style="font-size:0.87rem"></div>
+    </div>
+  </div>
+
+  <div class="grid-2 section-gap">
+    <!-- Risks -->
+    <div class="card">
+      <div class="card-title">⚠️ Risk Factors</div>
+      <div id="risk-list"></div>
+    </div>
+    <!-- Recommendations -->
+    <div class="card">
+      <div class="card-title">💡 Recommendations</div>
+      <div id="rec-list"></div>
+    </div>
+  </div>
+
+  <!-- Vitals chart (canvas) -->
+  <div class="card section-gap">
+    <div class="card-title">📈 Lifestyle Vitals</div>
+    <canvas id="vitalsChart" height="80"></canvas>
+  </div>
+
+  <!-- Quick links -->
+  <div class="grid-3">
+    <a href="analyzer.html" class="card" style="text-decoration:none;text-align:center">
+      <div style="font-size:2rem">🔬</div>
+      <div style="font-weight:600;margin-top:0.5rem">Analyze Food</div>
+      <div class="text-muted" style="font-size:0.82rem">Check compatibility</div>
+    </a>
+    <a href="diet.html" class="card" style="text-decoration:none;text-align:center">
+      <div style="font-size:2rem">📅</div>
+      <div style="font-weight:600;margin-top:0.5rem">Diet Plan</div>
+      <div class="text-muted" style="font-size:0.82rem">Your 7-day plan</div>
+    </a>
+    <a href="chat.html" class="card" style="text-decoration:none;text-align:center">
+      <div style="font-size:2rem">🤖</div>
+      <div style="font-weight:600;margin-top:0.5rem">AI Assistant</div>
+      <div class="text-muted" style="font-size:0.82rem">Ask anything</div>
+    </a>
+  </div>
+
+  <div style="margin-top:1.5rem;text-align:right">
+    <button class="btn btn-outline" onclick="if(confirm('Clear all data?')){Store.clear();location.reload()}">
+      🗑️ Reset Profile
+    </button>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI Health Chat · Digital Twin</title>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand"><span>🧬</span> Digital Twin Health</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="input.html">Profile</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="analyzer.html">Analyzer</a>
+    <a href="diet.html">Diet Plan</a>
+    <a href="chat.html" class="active">AI Chat</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>🤖 AI Health Assistant</h1>
+  <p>Ask anything about nutrition, Ayurveda, diet, or your health profile</p>
+</div>
+
+<div class="container-sm">
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div class="card-title" style="margin:0">💬 Chat with your Health Twin</div>
+      <button class="btn btn-outline" onclick="clearChat()" style="font-size:0.8rem;padding:0.3rem 0.7rem">🗑️ Clear</button>
+    </div>
+
+    <!-- Suggested prompts -->
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem" id="prompts">
+      <button class="btn btn-outline" style="font-size:0.8rem;padding:0.35rem 0.75rem" onclick="sendPrompt(this.textContent)">
+        What foods suit Vata dosha?
+      </button>
+      <button class="btn btn-outline" style="font-size:0.8rem;padding:0.35rem 0.75rem" onclick="sendPrompt(this.textContent)">
+        Foods to avoid with diabetes
+      </button>
+      <button class="btn btn-outline" style="font-size:0.8rem;padding:0.35rem 0.75rem" onclick="sendPrompt(this.textContent)">
+        How to reduce stress naturally?
+      </button>
+      <button class="btn btn-outline" style="font-size:0.8rem;padding:0.35rem 0.75rem" onclick="sendPrompt(this.textContent)">
+        Best foods for high blood pressure
+      </button>
+      <button class="btn btn-outline" style="font-size:0.8rem;padding:0.35rem 0.75rem" onclick="sendPrompt(this.textContent)">
+        How does ghee affect Kapha?
+      </button>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+      <div class="chat-bubble bot">
+        👋 Hello! I'm your Digital Twin AI Health Assistant. I can help you with:
+        <br/>• Food & nutrition questions
+        <br/>• Ayurvedic dosha guidance
+        <br/>• Diet recommendations for diabetes, BP etc.
+        <br/>• Lifestyle and wellness tips
+        <br/><br/>What would you like to know?
+      </div>
+    </div>
+
+    <div class="chat-input-row">
+      <input id="chat-input" type="text" placeholder="Ask about your health, food, or Ayurveda…"
+        onkeydown="if(event.key==='Enter')sendMessage()"/>
+      <button class="btn btn-primary" onclick="sendMessage()" id="send-btn">Send</button>
+    </div>
+
+    <p class="text-muted mt-1" style="font-size:0.78rem;text-align:center">
+      Powered by Claude AI · Responses are informational, not medical advice
+    </p>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/chat.js"></script>
+</body>
+</html>

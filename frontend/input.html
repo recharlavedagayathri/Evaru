@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Health Profile · Digital Twin</title>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand"><span>🧬</span> Digital Twin Health</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="input.html" class="active">Profile</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="analyzer.html">Analyzer</a>
+    <a href="diet.html">Diet Plan</a>
+    <a href="chat.html">AI Chat</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>📋 Build Your Health Profile</h1>
+  <p>Tell us about yourself so we can personalise every recommendation</p>
+</div>
+
+<!-- Step indicator -->
+<div style="background:#fff;border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;gap:1rem;align-items:center;justify-content:center;">
+  <div id="step1-ind" class="flex gap-1" style="align-items:center;font-weight:600;color:var(--green)">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.85rem">1</div>
+    Basic Info
+  </div>
+  <div style="flex:1;max-width:60px;height:2px;background:var(--border)"></div>
+  <div id="step2-ind" class="flex gap-1" style="align-items:center;font-weight:600;color:var(--text-2)">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--text-2);display:flex;align-items:center;justify-content:center;font-size:0.85rem">2</div>
+    Dosha Quiz
+  </div>
+  <div style="flex:1;max-width:60px;height:2px;background:var(--border)"></div>
+  <div id="step3-ind" class="flex gap-1" style="align-items:center;font-weight:600;color:var(--text-2)">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--text-2);display:flex;align-items:center;justify-content:center;font-size:0.85rem">3</div>
+    Results
+  </div>
+</div>
+
+<div class="container-sm">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="card section-gap">
+      <div class="card-title">🧍 Personal Information</div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Age</label>
+          <input id="age" type="number" class="form-control" placeholder="e.g. 30" min="10" max="100" value="30"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select id="gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Height (cm)</label>
+          <input id="height" type="number" class="form-control" placeholder="e.g. 170" value="170"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Weight (kg)</label>
+          <input id="weight" type="number" class="form-control" placeholder="e.g. 70" value="70"/>
+        </div>
+      </div>
+      <div id="bmi-preview" style="display:none" class="card bg-green mt-2" style="padding:0.75rem">
+        BMI: <strong id="bmi-val"></strong> — <span id="bmi-cat"></span>
+      </div>
+    </div>
+
+    <div class="card section-gap">
+      <div class="card-title">🏥 Medical History</div>
+      <div class="grid-2">
+        <label class="radio-card" id="diabLabel">
+          <input type="checkbox" id="diabetes"/> Diabetes
+        </label>
+        <label class="radio-card" id="bpLabel">
+          <input type="checkbox" id="hypertension"/> Hypertension / High BP
+        </label>
+        <label class="radio-card">
+          <input type="checkbox" id="fam_diabetes"/> Family — Diabetes
+        </label>
+        <label class="radio-card">
+          <input type="checkbox" id="fam_heart"/> Family — Heart Disease
+        </label>
+      </div>
+      <div class="form-group mt-2">
+        <label class="form-label">Current Medications (optional)</label>
+        <input id="medications" type="text" class="form-control" placeholder="e.g. Metformin, Amlodipine"/>
+      </div>
+    </div>
+
+    <div class="card section-gap">
+      <div class="card-title">🏃 Lifestyle</div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Steps per Day: <strong id="steps-lbl">7000</strong></label>
+          <input id="steps" type="range" min="0" max="20000" step="500" value="7000"
+            style="width:100%;accent-color:var(--green)"
+            oninput="document.getElementById('steps-lbl').textContent=this.value"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Exercise (hrs/week): <strong id="ex-lbl">3</strong></label>
+          <input id="exercise" type="range" min="0" max="20" step="0.5" value="3"
+            style="width:100%;accent-color:var(--green)"
+            oninput="document.getElementById('ex-lbl').textContent=this.value"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sleep (hrs/night): <strong id="sleep-lbl">7</strong></label>
+          <input id="sleep" type="range" min="3" max="12" step="0.5" value="7"
+            style="width:100%;accent-color:var(--green)"
+            oninput="document.getElementById('sleep-lbl').textContent=this.value"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stress Level (1–10): <strong id="stress-lbl">5</strong></label>
+          <input id="stress" type="range" min="1" max="10" value="5"
+            style="width:100%;accent-color:var(--green)"
+            oninput="document.getElementById('stress-lbl').textContent=this.value"/>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-full btn-lg" onclick="submitStep1()">
+      Continue to Dosha Quiz →
+    </button>
+  </div>
+
+  <!-- STEP 2 — Dosha Quiz -->
+  <div id="step2" style="display:none">
+    <div class="card section-gap">
+      <div class="card-title">🌿 Ayurvedic Dosha Assessment</div>
+      <p class="text-muted mb-2">Answer all 5 questions honestly — there are no right or wrong answers.</p>
+      <div id="quiz-container"></div>
+      <button class="btn btn-primary btn-full btn-lg mt-2" onclick="submitDosha()">
+        Calculate My Dosha ✨
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3 — Results -->
+  <div id="step3" style="display:none">
+    <div class="card section-gap" id="dosha-result-card">
+      <div class="card-title">🌿 Your Ayurvedic Constitution</div>
+      <div id="dosha-result-content"></div>
+    </div>
+    <div class="card section-gap" id="health-result-card">
+      <div class="card-title">💚 Health Score</div>
+      <div id="health-result-content"></div>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="dashboard.html" class="btn btn-primary btn-lg" style="flex:1">View Dashboard →</a>
+      <a href="analyzer.html" class="btn btn-outline btn-lg" style="flex:1">Analyze Food →</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/form.js"></script>
+</body>
+</html>

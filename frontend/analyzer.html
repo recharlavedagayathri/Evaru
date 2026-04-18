@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Food Analyzer · Digital Twin</title>
+<link rel="stylesheet" href="css/styles.css"/>
+<style>
+#twin-canvas-wrap {
+  position: relative;
+  background: radial-gradient(ellipse at center, #1a2a1a 0%, #0d1a0d 100%);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#twin-canvas { display: block; }
+.organ-label {
+  position: absolute;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  white-space: nowrap;
+}
+#food-status-bar {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand"><span>🧬</span> Digital Twin Health</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="input.html">Profile</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="analyzer.html" class="active">Analyzer</a>
+    <a href="diet.html">Diet Plan</a>
+    <a href="chat.html">AI Chat</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>🔬 Smart Food Analyzer</h1>
+  <p>See how any food affects your body type, diseases, and organs — in real time</p>
+</div>
+
+<div class="container">
+  <div class="grid-2 section-gap" style="align-items:start">
+
+    <!-- LEFT: Search + Results -->
+    <div>
+      <div class="card section-gap">
+        <div class="card-title">🍽️ Search Food</div>
+        <div style="position:relative">
+          <input id="food-input" class="form-control" type="text"
+            placeholder="Type a food name… e.g. Rice, Eggs, Apple"
+            oninput="onFoodInput(this.value)" autocomplete="off"/>
+          <div id="suggestions" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;
+            border:1px solid var(--border);border-radius:var(--radius-s);box-shadow:var(--shadow);z-index:50;max-height:200px;overflow-y:auto"></div>
+        </div>
+
+        <div class="grid-2 mt-2">
+          <div class="form-group">
+            <label class="form-label">Your Dosha</label>
+            <select id="sel-dosha" class="form-control">
+              <option value="vata">🌬️ Vata</option>
+              <option value="pitta">🔥 Pitta</option>
+              <option value="kapha">🌊 Kapha</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Conditions</label>
+            <div style="display:flex;gap:1rem;padding-top:0.4rem">
+              <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.9rem;cursor:pointer">
+                <input type="checkbox" id="cb-diabetes" style="accent-color:var(--green)"/> Diabetes
+              </label>
+              <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.9rem;cursor:pointer">
+                <input type="checkbox" id="cb-bp" style="accent-color:var(--green)"/> High BP
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="analyzeFood()">
+          🔍 Analyze Food
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div id="result-card" style="display:none" class="card section-gap">
+        <div id="result-content"></div>
+      </div>
+
+      <!-- Simulation -->
+      <div id="sim-card" style="display:none" class="card">
+        <div class="card-title">⏳ Long-term Simulation</div>
+        <div class="form-group">
+          <label class="form-label">Consumption Frequency</label>
+          <select id="sel-freq" class="form-control">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="occasional">Occasional</option>
+          </select>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="runSimulation()">Run 12-Week Simulation →</button>
+        <div id="sim-result" class="mt-2"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: 3D Twin -->
+    <div>
+      <div class="card" style="padding:1rem">
+        <div class="card-title">🫀 Digital Body Twin</div>
+        <div id="twin-canvas-wrap">
+          <canvas id="twin-canvas" width="420" height="360"></canvas>
+          <div id="organ-labels"></div>
+          <div id="food-status-bar">🧬 Awaiting food analysis…</div>
+        </div>
+        <div id="organ-list" class="mt-2">
+          <p class="text-muted text-center" style="font-size:0.85rem">Analyze a food to highlight affected organs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/three_body.js"></script>
+<script src="js/analyzer.js"></script>
+</body>
+</html>

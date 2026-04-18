@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Diet Plan · Digital Twin</title>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand"><span>🧬</span> Digital Twin Health</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="input.html">Profile</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="analyzer.html">Analyzer</a>
+    <a href="diet.html" class="active">Diet Plan</a>
+    <a href="chat.html">AI Chat</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>📅 Your Weekly Diet Plan</h1>
+  <p>Personalised 7-day meals based on your dosha, BMI, and health conditions</p>
+</div>
+
+<div class="container">
+
+  <!-- Config card -->
+  <div class="card section-gap">
+    <div class="card-title">⚙️ Plan Configuration</div>
+    <div class="grid-4">
+      <div class="form-group">
+        <label class="form-label">Dosha</label>
+        <select id="plan-dosha" class="form-control">
+          <option value="vata">🌬️ Vata</option>
+          <option value="pitta">🔥 Pitta</option>
+          <option value="kapha">🌊 Kapha</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">BMI</label>
+        <input id="plan-bmi" type="number" class="form-control" value="22" step="0.1" min="15" max="45"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Diabetes</label>
+        <select id="plan-diabetes" class="form-control">
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Hypertension</label>
+        <select id="plan-bp" class="form-control">
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="generatePlan()">🔄 Generate Plan</button>
+  </div>
+
+  <!-- Summary cards -->
+  <div id="plan-summary" style="display:none" class="grid-4 section-gap">
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem">DOSHA</div>
+      <div id="s-dosha" style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--green)">—</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem">BMI CATEGORY</div>
+      <div id="s-bmi" style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--green)">—</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem">WATER INTAKE</div>
+      <div id="s-water" style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--green)">—</div>
+      <div class="text-muted" style="font-size:0.75rem">liters / day</div>
+    </div>
+    <div class="card text-center">
+      <div class="text-muted" style="font-size:0.8rem">CALORIE PLAN</div>
+      <div id="s-cal" style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--green)">—</div>
+    </div>
+  </div>
+
+  <!-- Guidelines -->
+  <div id="guidelines-card" style="display:none" class="card section-gap">
+    <div class="card-title">📋 Dietary Guidelines</div>
+    <div id="guidelines-content"></div>
+  </div>
+
+  <!-- Weekly table -->
+  <div id="plan-table-card" style="display:none" class="card section-gap">
+    <div class="card-title">🗓️ 7-Day Meal Plan</div>
+    <div style="overflow-x:auto">
+      <table class="week-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>🌅 Breakfast</th>
+            <th>☀️ Lunch</th>
+            <th>🌙 Dinner</th>
+            <th>🍎 Snack</th>
+          </tr>
+        </thead>
+        <tbody id="plan-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Print/Export -->
+  <div id="export-row" style="display:none;gap:1rem" class="flex">
+    <button class="btn btn-outline" onclick="window.print()">🖨️ Print Plan</button>
+    <button class="btn btn-outline" onclick="exportCSV()">📥 Export CSV</button>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/diet.js"></script>
+</body>
+</html>
